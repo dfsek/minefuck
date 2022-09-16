@@ -129,14 +129,13 @@ public class InterpreterBlockEntity extends BlockEntity implements SingleSlotInv
         }
     }
 
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         if (!this.getBook().isEmpty()) {
             tag.put("Book", this.getBook().writeNbt(new NbtCompound()));
         }
         bf.toTag(tag);
         pulsed = tag.getBoolean("pulsed");
-        return tag;
     }
 
     @Override
