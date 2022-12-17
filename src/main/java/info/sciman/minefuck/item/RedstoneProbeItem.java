@@ -1,22 +1,12 @@
 package info.sciman.minefuck.item;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.network.MessageType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -65,7 +55,7 @@ public class RedstoneProbeItem extends Item {
             }else if (hasComparator) {
                 // Is this a comparator output block?
                 int compStrength = state.getComparatorOutput(world,pos);
-                promptText = new TranslatableText("probe.comparator_output",compStrength);
+                promptText = Text.translatable("probe.comparator_output",compStrength);
             }
 
             // Show message
@@ -81,10 +71,10 @@ public class RedstoneProbeItem extends Item {
     }
 
     private static void sendMessage(PlayerEntity player, Text message) {
-        ((ServerPlayerEntity)player).sendMessage(message, MessageType.GAME_INFO, Util.NIL_UUID);
+        player.sendMessage(message);
     }
 
     static {
-        BEHAVIORS = new HashMap<Block, ProbeBehaviour>();
+        BEHAVIORS = new HashMap<>();
     }
 }

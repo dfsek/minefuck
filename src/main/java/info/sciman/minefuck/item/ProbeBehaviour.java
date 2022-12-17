@@ -7,9 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,7 +18,7 @@ public interface ProbeBehaviour {
         // Redstone wire
         RedstoneProbeItem.registerBehavior(Blocks.REDSTONE_WIRE,(world,pos,state) -> {
             int pwr = state.get(RedstoneWireBlock.POWER);
-            return new TranslatableText("probe.signal_power",pwr);
+            return Text.translatable("probe.signal_power",pwr);
         });
 
         // Brainfuck interpreter
@@ -30,12 +28,12 @@ public interface ProbeBehaviour {
                 InterpreterBlockEntity interpreter = (InterpreterBlockEntity) be;
                 BFSession bf = interpreter.getBf();
                 if (bf.checkError()) {
-                    return new TranslatableText("probe.interpreter_bracket_error", bf.getError());
+                    return Text.translatable("probe.interpreter_bracket_error", bf.getError());
                 }else{
-                    return new TranslatableText("probe.interpreter_debug", bf.getPC(), bf.getPointer(), bf.getTapeValue(bf.getPointer()));
+                    return Text.translatable("probe.interpreter_debug", bf.getPC(), bf.getPointer(), bf.getTapeValue(bf.getPointer()));
                 }
             }else{
-                return new LiteralText("???");
+                return Text.literal("???");
             }
         });
     }

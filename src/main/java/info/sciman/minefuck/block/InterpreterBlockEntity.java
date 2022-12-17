@@ -15,7 +15,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -101,17 +100,17 @@ public class InterpreterBlockEntity extends BlockEntity implements SingleSlotInv
 
     private ServerCommandSource getCommandSource(@Nullable PlayerEntity player) {
         String string2;
-        Object text2;
+        Text text2;
         if (player == null) {
             string2 = "Lectern";
-            text2 = new LiteralText("Lectern");
+            text2 = Text.literal("Lectern");
         } else {
             string2 = player.getName().getString();
             text2 = player.getDisplayName();
         }
 
         Vec3d vec3d = Vec3d.ofCenter(this.pos);
-        return new ServerCommandSource(CommandOutput.DUMMY, vec3d, Vec2f.ZERO, (ServerWorld)this.world, 2, string2, (Text)text2, this.world.getServer(), player);
+        return new ServerCommandSource(CommandOutput.DUMMY, vec3d, Vec2f.ZERO, (ServerWorld)this.world, 2, string2, text2, this.world.getServer(), player);
     }
 
     public void clear() {
